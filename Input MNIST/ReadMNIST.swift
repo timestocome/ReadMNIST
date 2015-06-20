@@ -48,32 +48,32 @@ class ReadMNIST
         // magic number
         var range = NSRange(location: 0, length: size)
         data?.getBytes(&infoBytes, range: range)
-        infoBytes = infoBytes.reverse()  //big endian little endian
+        infoBytes = Array(infoBytes.reverse())  //big endian little endian
         let magicNumber = UnsafePointer<UInt32>(infoBytes).memory
-        println("magicNumber \(magicNumber)")
+        print("magicNumber \(magicNumber)")
         
         // number of images
         range.location = size
         data?.getBytes(&infoBytes, range: range)
-        infoBytes = infoBytes.reverse()
+        infoBytes = Array(infoBytes.reverse())
         let numberOfLabels = UnsafePointer<UInt32>(infoBytes).memory
-        println("number of labels \(numberOfLabels)")
+        print("number of labels \(numberOfLabels)")
         
         
         // number of rows
         range.location += size
         data?.getBytes(&infoBytes, range: range)
-        infoBytes = infoBytes.reverse()
+        infoBytes = Array(infoBytes.reverse())
         let numberOfRows = UnsafePointer<UInt32>(infoBytes).memory
-        println("numberOfRows \(numberOfRows)")
+        print("numberOfRows \(numberOfRows)")
         
         
         // number of columns
         range.location += size
         data?.getBytes(&infoBytes, range: range)
-        infoBytes = infoBytes.reverse()
+        infoBytes = Array(infoBytes.reverse())
         let numberOfColumns = UnsafePointer<UInt32>(infoBytes).memory
-        println("numberOfColumms \(numberOfColumns)")
+        print("numberOfColumms \(numberOfColumns)")
         
         
         // remove first  bits that contain info data from array
@@ -82,9 +82,9 @@ class ReadMNIST
         
         // print one just to see if it looks okay
         for i in 0..<28 {
-            println()
+            print("")
             for j in 0..<28 {
-                print( NSString(format: "%04d", imageData[i*28 + j]))
+                print( NSString(format: "%04d", imageData[i*28 + j]), appendNewline: false)
             }
         }
 
@@ -118,22 +118,22 @@ class ReadMNIST
         let size = sizeof(UInt32)
         var range = NSRange(location: 0, length: size)
         data?.getBytes(&infoBytes, range: range)
-        infoBytes = infoBytes.reverse()  //big endian little endian
+        infoBytes = Array(infoBytes.reverse())  //big endian little endian
         let magicNumber = UnsafePointer<UInt32>(infoBytes).memory
-        println("magicNumber \(magicNumber)")
+        print("magicNumber \(magicNumber)")
         
         
         range.location = size
         data?.getBytes(&infoBytes, range: range)
-        infoBytes = infoBytes.reverse()
+        infoBytes = Array(infoBytes.reverse())
         let numberOfLabels = UnsafePointer<UInt32>(infoBytes).memory
-        println("number of labels \(numberOfLabels)")
+        print("number of labels \(numberOfLabels)")
         
         
         
         // remove first 8 bits that contain file data from our labels array
         labelData.removeRange(0..<8)
-        println("data? (0-9) \n\n \(labelData)"  )
+        print("data? (0-9) \n\n \(labelData)"  )
         
     }
     
